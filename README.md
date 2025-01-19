@@ -1,0 +1,1 @@
+![CI](https://github.com/CrazyDasp/CatchGoblinGame/actions/workflows/web.yml/badge.svg)
