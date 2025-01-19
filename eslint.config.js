@@ -1,8 +1,7 @@
 export default [
     {
-      files: ["src/**/*.js"], // Укажите пути к вашим JavaScript-файлам
+      files: ["src/**/*.js"],
       rules: {
-        // Пример правил ESLint
         "no-unused-vars": "error",
         "no-console": "warn",
       },
