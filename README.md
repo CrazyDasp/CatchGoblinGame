@@ -1,1 +1,1 @@
-![CI](https://github.com/CrazyDasp/CatchGoblinGame/actions/workflows/web.yml/badge.svg)
+## your awesome game here

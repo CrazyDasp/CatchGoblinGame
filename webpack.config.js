@@ -1,43 +1,44 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  mode: 'development', // Для продакшена смените на 'production'
+  entry: './src/index.js', // Главный файл
   output: {
-    filename: 'main.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true,
+    clean: true, // Очищает папку dist перед каждой сборкой
   },
-  mode: 'development',
+  devtool: 'inline-source-map', // Удобно для отладки
+  devServer: {
+    static: './dist',
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'], // Для обработки CSS
+      },
+      {
+        test: /\.(png|jpg|gif)$/i, // Для работы с изображениями
+        type: 'asset/resource',
+      },
+      {
+        test: /\.js$/i,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader', // Транспиляция JS
         },
-      },
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/index.html', // Ваш HTML-шаблон
     }),
-    new ESLintPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css', // Генерация CSS
+    }),
   ],
-  devServer: {
-    static: './dist',
-    open: true,
-    hot: true,
-  },
 };
